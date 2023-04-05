@@ -51,6 +51,8 @@
      
         $("#inputTxtDominio").val("https://www.google.com.mx");//Inicialización default
 
+        var tokenActual=null,expiracionToken=null,segundosDuracionToken=60;
+
         function validarDominio() {
           
           obtenerTokenJWT().then((tokenNew)=>{
@@ -75,21 +77,27 @@
             error => alert("Error al actualizar token JWT.")
           );
         }
-
+        
         function obtenerTokenJWT(){
           return new Promise((resolve, reject) => { //Manejo de promesas js: https://stackoverflow.com/questions/53110707/javascript-promises-with-ajax
-            $.ajax({
+            if(tokenActual!=null && expiracionToken.getTime()>(new Date().getTime())){
+              resolve(tokenActual);
+            }else{
+              $.ajax({
                   type: "POST",
                   url: 'ActualizacionDeToken.php',
                   data:{},
                   success:function(respuestaNuevoToken) {
+                    tokenActual=respuestaNuevoToken;
+                    expiracionToken=new Date(Date.now() + segundosDuracionToken*1000);// https://stackoverflow.com/questions/7687884/add-10-seconds-to-a-date
                     resolve(respuestaNuevoToken);
                   },
                   error: function(XMLHttpRequest, textStatus, errorThrown) { 
                     reject(errorThrown);
                   }
               });
-            });
+            }
+          });
         }
 
     </script>
