@@ -29,7 +29,6 @@
 
   <?php
     $llavePrivadaDeToken='secretPrivateKey123*_';
-    include_once("CreacionDeToken.php");
   ?>
 
 	<body>
@@ -77,7 +76,7 @@
             error => alert("Error al actualizar token JWT.")
           );
         }
-        
+
         function obtenerTokenJWT(){
           return new Promise((resolve, reject) => { //Manejo de promesas js: https://stackoverflow.com/questions/53110707/javascript-promises-with-ajax
             if(tokenActual!=null && expiracionToken.getTime()>(new Date().getTime())){
