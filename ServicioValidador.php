@@ -19,7 +19,7 @@
                 $contieneOpcionesDeCerificadoSsl = ($parametrosDeArchivoDeDominio["options"]["ssl"]["peer_certificate"]);
                 $resultadoValidacionSsl = (!is_null($contieneOpcionesDeCerificadoSsl)) ? true : false;
                 
-                print_r(array_values($parametrosDeArchivoDeDominio["options"]["ssl"]));
+                //print_r(array_values($parametrosDeArchivoDeDominio["options"]["ssl"]));
 
                 if($resultadoValidacionSsl){
                     echo "\n"."El certificado ssl SI es válido";
